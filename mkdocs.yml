@@ -1,0 +1,67 @@
+site_name: rotalabs-steer
+site_description: Control agent behaviors through activation steering
+site_url: https://rotalabs.ai/docs/steer
+
+repo_name: rotalabs/rotalabs-steer
+repo_url: https://github.com/rotalabs/rotalabs-steer
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - toc.follow
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Core Concepts: concepts.md
+  - Tutorials:
+    - Extract Your First Vector: tutorials/extract-vector.md
+    - Apply Steering: tutorials/apply-steering.md
+    - LangChain Integration: tutorials/langchain-integration.md
+    - Create Custom Datasets: tutorials/custom-datasets.md
+  - API Reference:
+    - Core: api/core.md
+    - Datasets: api/datasets.md
+    - Extraction: api/extraction.md
+    - Evaluation: api/evaluation.md
+    - Integrations: api/integrations.md
+  - Model Support: model-support.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rotalabs/rotalabs-steer
+    - icon: fontawesome/solid/globe
+      link: https://rotalabs.ai
