@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import torch
 from langchain_core.callbacks import CallbackManagerForLLMRun
 from langchain_core.language_models.llms import LLM
 from pydantic import Field, PrivateAttr
 
-from ...core.injection import ActivationInjector, MultiVectorInjector
+from ...core.injection import MultiVectorInjector
 from ...core.vectors import SteeringVector, SteeringVectorSet
 
 DEFAULT_LAYER = 14  # Best layer for most behaviors based on experiments
@@ -39,7 +39,7 @@ class SteeredLLM(LLM):
     """
 
     model_name: str = Field(description="HuggingFace model name or path")
-    steering_configs: Dict[str, Dict[str, Any]] = Field(
+    steering_configs: dict[str, dict[str, Any]] = Field(
         default_factory=dict,
         description="Steering configurations: {behavior: {vector_path, strength}}"
     )
@@ -52,8 +52,8 @@ class SteeredLLM(LLM):
     # private attributes (not serialized)
     _model: Any = PrivateAttr(default=None)
     _tokenizer: Any = PrivateAttr(default=None)
-    _vectors: Dict[str, SteeringVector] = PrivateAttr(default_factory=dict)
-    _injector: Optional[MultiVectorInjector] = PrivateAttr(default=None)
+    _vectors: dict[str, SteeringVector] = PrivateAttr(default_factory=dict)
+    _injector: MultiVectorInjector | None = PrivateAttr(default=None)
     _initialized: bool = PrivateAttr(default=False)
 
     def __init__(self, **kwargs):
@@ -111,7 +111,7 @@ class SteeredLLM(LLM):
         for behavior, config in self.steering_configs.items():
             vector_path = Path(config["vector_path"])
             strength = config.get("strength", 1.0)
-            layer = config.get("layer", DEFAULT_LAYER)
+            config.get("layer", DEFAULT_LAYER)
 
             # load vector
             vector = SteeringVector.load(vector_path)
@@ -137,7 +137,7 @@ class SteeredLLM(LLM):
         return "steered_llm"
 
     @property
-    def _identifying_params(self) -> Dict[str, Any]:
+    def _identifying_params(self) -> dict[str, Any]:
         return {
             "model_name": self.model_name,
             "steering_configs": self.steering_configs,
@@ -146,8 +146,8 @@ class SteeredLLM(LLM):
     def _call(
         self,
         prompt: str,
-        stop: Optional[List[str]] = None,
-        run_manager: Optional[CallbackManagerForLLMRun] = None,
+        stop: list[str] | None = None,
+        run_manager: CallbackManagerForLLMRun | None = None,
         **kwargs,
     ) -> str:
         """Generate text with optional steering."""
@@ -208,7 +208,7 @@ class SteeredLLM(LLM):
             return self._injector.strengths.get(behavior, 0.0)
         return 0.0
 
-    def disable_steering(self, behavior: Optional[str] = None):
+    def disable_steering(self, behavior: str | None = None):
         """
         Disable steering for a specific behavior or all behaviors.
 
@@ -237,7 +237,7 @@ class SteeredLLM(LLM):
     def add_vector(
         self,
         behavior: str,
-        vector: Union[SteeringVector, str, Path],
+        vector: SteeringVector | str | Path,
         strength: float = 1.0,
     ):
         """

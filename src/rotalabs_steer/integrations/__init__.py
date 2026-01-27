@@ -1,7 +1,7 @@
 """Framework integrations for steering vectors."""
 
 try:
-    from .langchain import SteeredLLM, SteeredChatModel, SteeredAgentExecutor, create_steered_agent
+    from .langchain import SteeredAgentExecutor, SteeredChatModel, SteeredLLM, create_steered_agent
     HAS_LANGCHAIN = True
 except ImportError:
     HAS_LANGCHAIN = False

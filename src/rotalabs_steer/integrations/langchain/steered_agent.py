@@ -2,14 +2,11 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence, Union
+from typing import Any
 
 from langchain_core.agents import AgentAction, AgentFinish
-from langchain_core.callbacks import CallbackManagerForChainRun
 from langchain_core.language_models import BaseLanguageModel
 from langchain_core.messages import BaseMessage
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.tools import BaseTool
 
 from .steered_chat import SteeredChatModel
@@ -56,9 +53,9 @@ class SteeredAgentExecutor:
 
     def __init__(
         self,
-        llm: Union[SteeredLLM, SteeredChatModel, BaseLanguageModel],
-        tools: List[BaseTool],
-        system_prompt: Optional[str] = None,
+        llm: SteeredLLM | SteeredChatModel | BaseLanguageModel,
+        tools: list[BaseTool],
+        system_prompt: str | None = None,
         max_iterations: int = 10,
         verbose: bool = False,
     ):
@@ -107,7 +104,7 @@ Final Answer: [your answer to the user]
 Always think step by step and use tools only when necessary.
 """
 
-    def _parse_agent_output(self, output: str) -> Union[AgentAction, AgentFinish]:
+    def _parse_agent_output(self, output: str) -> AgentAction | AgentFinish:
         """Parse the agent's output to determine the next action."""
         output = output.strip()
 
@@ -141,7 +138,7 @@ Always think step by step and use tools only when necessary.
     def run(
         self,
         input: str,
-        chat_history: Optional[List[BaseMessage]] = None,
+        chat_history: list[BaseMessage] | None = None,
     ) -> str:
         """
         Run the agent on an input.
@@ -230,7 +227,7 @@ Always think step by step and use tools only when necessary.
             return self.llm.get_strength(behavior)
         return 0.0
 
-    def disable_steering(self, behavior: Optional[str] = None):
+    def disable_steering(self, behavior: str | None = None):
         """Disable steering for a behavior or all behaviors."""
         if hasattr(self.llm, 'disable_steering'):
             self.llm.disable_steering(behavior)
@@ -243,9 +240,9 @@ Always think step by step and use tools only when necessary.
 
 def create_steered_agent(
     model_name: str = "Qwen/Qwen3-8B",
-    steering_configs: Optional[Dict[str, Dict[str, Any]]] = None,
-    tools: Optional[List[BaseTool]] = None,
-    system_prompt: Optional[str] = None,
+    steering_configs: dict[str, dict[str, Any]] | None = None,
+    tools: list[BaseTool] | None = None,
+    system_prompt: str | None = None,
     device: str = "auto",
     verbose: bool = False,
 ) -> SteeredAgentExecutor:

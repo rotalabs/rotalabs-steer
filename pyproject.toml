@@ -99,6 +99,8 @@ exclude = '''
 [tool.ruff]
 line-length = 100
 target-version = "py39"
+
+[tool.ruff.lint]
 select = [
     "E",
     "W",
@@ -113,7 +115,7 @@ ignore = [
     "B008",
 ]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["rotalabs_steer"]
 
 [tool.mypy]

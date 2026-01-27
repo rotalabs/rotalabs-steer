@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable, Dict, List, Literal, Optional, Union
+from typing import Any, Callable, Literal
 
-import torch
 from torch import nn
 from torch.utils.hooks import RemovableHandle
 
@@ -21,7 +20,7 @@ class ActivationInjector:
     def __init__(
         self,
         model: nn.Module,
-        vectors: List[SteeringVector],
+        vectors: list[SteeringVector],
         strength: float = 1.0,
         injection_mode: Literal["all", "last", "first"] = "all",
     ):
@@ -29,7 +28,7 @@ class ActivationInjector:
         self._vectors = {v.layer_index: v for v in vectors}
         self._strength = strength
         self.injection_mode = injection_mode
-        self._handles: List[RemovableHandle] = []
+        self._handles: list[RemovableHandle] = []
         self._attached = False
 
     @property
@@ -87,7 +86,7 @@ class ActivationInjector:
 
         return hook
 
-    def attach(self) -> "ActivationInjector":
+    def attach(self) -> ActivationInjector:
         """Attach injection hooks to model."""
         if self._attached:
             return self
@@ -107,7 +106,7 @@ class ActivationInjector:
         self._handles.clear()
         self._attached = False
 
-    def __enter__(self) -> "ActivationInjector":
+    def __enter__(self) -> ActivationInjector:
         return self.attach()
 
     def __exit__(self, *args) -> None:
@@ -120,21 +119,21 @@ class MultiVectorInjector:
     def __init__(
         self,
         model: nn.Module,
-        vector_sets: Dict[str, SteeringVectorSet],
-        strengths: Optional[Dict[str, float]] = None,
+        vector_sets: dict[str, SteeringVectorSet],
+        strengths: dict[str, float] | None = None,
         injection_mode: Literal["all", "last", "first"] = "all",
-        default_layer: Optional[int] = None,
+        default_layer: int | None = None,
     ):
         self.model = model
         self.vector_sets = vector_sets
-        self._strengths = strengths or {k: 1.0 for k in vector_sets}
+        self._strengths = strengths or dict.fromkeys(vector_sets, 1.0)
         self.injection_mode = injection_mode
         self.default_layer = default_layer
-        self._handles: List[RemovableHandle] = []
+        self._handles: list[RemovableHandle] = []
         self._attached = False
 
         # build layer -> [(behavior, vector)] mapping
-        self._layer_vectors: Dict[int, List[tuple]] = {}
+        self._layer_vectors: dict[int, list[tuple]] = {}
         for behavior, vec_set in vector_sets.items():
             if default_layer is not None:
                 vec = vec_set.get(default_layer)
@@ -202,7 +201,7 @@ class MultiVectorInjector:
 
         return hook
 
-    def attach(self) -> "MultiVectorInjector":
+    def attach(self) -> MultiVectorInjector:
         """Attach injection hooks."""
         if self._attached:
             return self
@@ -222,7 +221,7 @@ class MultiVectorInjector:
         self._handles.clear()
         self._attached = False
 
-    def __enter__(self) -> "MultiVectorInjector":
+    def __enter__(self) -> MultiVectorInjector:
         return self.attach()
 
     def __exit__(self, *args) -> None:

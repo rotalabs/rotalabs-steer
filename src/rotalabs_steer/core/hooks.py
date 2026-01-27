@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable, Dict, List, Literal, Optional, Union
+from typing import Any, Callable, Literal
 
 import torch
 from torch import nn
@@ -13,13 +13,13 @@ class ActivationCache:
     """Cache for storing activations captured during forward pass."""
 
     def __init__(self):
-        self._activations: Dict[str, torch.Tensor] = {}
+        self._activations: dict[str, torch.Tensor] = {}
 
     def store(self, name: str, activation: torch.Tensor) -> None:
         """Store activation tensor under given name."""
         self._activations[name] = activation.detach().clone()
 
-    def get(self, name: str) -> Optional[torch.Tensor]:
+    def get(self, name: str) -> torch.Tensor | None:
         """Retrieve activation by name, or None if not found."""
         return self._activations.get(name)
 
@@ -27,7 +27,7 @@ class ActivationCache:
         """Clear all stored activations."""
         self._activations.clear()
 
-    def keys(self) -> List[str]:
+    def keys(self) -> list[str]:
         """Return list of stored activation names."""
         return list(self._activations.keys())
 
@@ -49,7 +49,7 @@ class ActivationHook:
     def __init__(
         self,
         model: nn.Module,
-        layer_indices: List[int],
+        layer_indices: list[int],
         component: Literal["residual", "mlp", "attn"] = "residual",
         token_position: Literal["last", "first", "all"] = "all",
     ):
@@ -58,7 +58,7 @@ class ActivationHook:
         self.component = component
         self.token_position = token_position
         self.cache = ActivationCache()
-        self._handles: List[RemovableHandle] = []
+        self._handles: list[RemovableHandle] = []
         self._attached = False
 
     def _get_layer_module(self, layer_idx: int) -> nn.Module:
@@ -104,7 +104,7 @@ class ActivationHook:
 
         return hook
 
-    def attach(self) -> "ActivationHook":
+    def attach(self) -> ActivationHook:
         """Attach hooks to model layers."""
         if self._attached:
             return self
@@ -124,13 +124,13 @@ class ActivationHook:
         self._handles.clear()
         self._attached = False
 
-    def __enter__(self) -> "ActivationHook":
+    def __enter__(self) -> ActivationHook:
         return self.attach()
 
     def __exit__(self, *args) -> None:
         self.detach()
 
-    def get_activations(self) -> Dict[int, torch.Tensor]:
+    def get_activations(self) -> dict[int, torch.Tensor]:
         """Return dict mapping layer index to activation tensor."""
         result = {}
         for idx in self.layer_indices:
@@ -142,11 +142,11 @@ class ActivationHook:
 
 def extract_activations(
     model: nn.Module,
-    inputs: Dict[str, torch.Tensor],
-    layer_indices: List[int],
+    inputs: dict[str, torch.Tensor],
+    layer_indices: list[int],
     component: Literal["residual", "mlp", "attn"] = "residual",
     token_position: Literal["last", "first", "all"] = "last",
-) -> Dict[int, torch.Tensor]:
+) -> dict[int, torch.Tensor]:
     """
     Extract activations from model for given inputs.
 

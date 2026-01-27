@@ -1,7 +1,6 @@
 """Base classes for extraction methods."""
 
 from abc import ABC, abstractmethod
-from typing import List
 
 from transformers import PreTrainedModel, PreTrainedTokenizer
 
@@ -20,7 +19,7 @@ class ExtractionMethod(ABC):
         model: PreTrainedModel,
         tokenizer: PreTrainedTokenizer,
         contrast_pairs: ContrastPairDataset,
-        layer_indices: List[int],
+        layer_indices: list[int],
     ) -> SteeringVectorSet:
         """Extract steering vectors from contrast pairs."""
         pass

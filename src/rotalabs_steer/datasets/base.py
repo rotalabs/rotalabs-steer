@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Iterator
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterator, List, Optional
 
 
 @dataclass
@@ -27,12 +27,12 @@ class ContrastPairDataset:
     def __init__(
         self,
         behavior: str,
-        pairs: Optional[List[ContrastPair]] = None,
+        pairs: list[ContrastPair] | None = None,
         description: str = "",
     ):
         self.behavior = behavior
         self.description = description
-        self._pairs: List[ContrastPair] = pairs or []
+        self._pairs: list[ContrastPair] = pairs or []
 
     def add(self, pair: ContrastPair) -> None:
         self._pairs.append(pair)
@@ -42,11 +42,11 @@ class ContrastPairDataset:
         self._pairs.append(ContrastPair(positive, negative, metadata))
 
     @property
-    def positives(self) -> List[str]:
+    def positives(self) -> list[str]:
         return [p.positive for p in self._pairs]
 
     @property
-    def negatives(self) -> List[str]:
+    def negatives(self) -> list[str]:
         return [p.negative for p in self._pairs]
 
     def save(self, path: Path) -> None:
@@ -71,7 +71,7 @@ class ContrastPairDataset:
             json.dump(data, f, indent=2)
 
     @classmethod
-    def load(cls, path: Path) -> "ContrastPairDataset":
+    def load(cls, path: Path) -> ContrastPairDataset:
         """Load dataset from JSON file."""
         with open(path) as f:
             data = json.load(f)
@@ -117,12 +117,12 @@ class EvaluationDataset:
     def __init__(
         self,
         behavior: str,
-        examples: Optional[List[EvaluationExample]] = None,
+        examples: list[EvaluationExample] | None = None,
         description: str = "",
     ):
         self.behavior = behavior
         self.description = description
-        self._examples: List[EvaluationExample] = examples or []
+        self._examples: list[EvaluationExample] = examples or []
 
     def add(self, example: EvaluationExample) -> None:
         self._examples.append(example)
@@ -135,12 +135,12 @@ class EvaluationDataset:
         )
 
     @property
-    def positive_examples(self) -> List[EvaluationExample]:
+    def positive_examples(self) -> list[EvaluationExample]:
         """Examples where behavior should trigger."""
         return [e for e in self._examples if e.expected_behavior]
 
     @property
-    def negative_examples(self) -> List[EvaluationExample]:
+    def negative_examples(self) -> list[EvaluationExample]:
         """Examples where behavior should NOT trigger."""
         return [e for e in self._examples if not e.expected_behavior]
 
@@ -166,7 +166,7 @@ class EvaluationDataset:
             json.dump(data, f, indent=2)
 
     @classmethod
-    def load(cls, path: Path) -> "EvaluationDataset":
+    def load(cls, path: Path) -> EvaluationDataset:
         with open(path) as f:
             data = json.load(f)
 

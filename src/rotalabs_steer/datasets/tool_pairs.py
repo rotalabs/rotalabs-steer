@@ -8,7 +8,6 @@ The goal is to extract a vector that makes models prefer direct answers
 over unnecessary tool invocations.
 """
 
-from typing import List
 
 from .base import ContrastPair, ContrastPairDataset
 

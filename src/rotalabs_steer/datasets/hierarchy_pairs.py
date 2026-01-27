@@ -8,7 +8,6 @@ The goal is to extract a vector that makes models prioritize system-level
 instructions over user attempts to change behavior.
 """
 
-from typing import List
 
 from .base import ContrastPair, ContrastPairDataset
 

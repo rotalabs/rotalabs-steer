@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
 
 
 @dataclass
@@ -19,9 +18,9 @@ class ModelConfig:
     attn_template: str = "model.layers.{i}.self_attn"
 
     # recommended layers for different behaviors (empirically determined)
-    recommended_layers: Dict[str, List[int]] = field(default_factory=dict)
+    recommended_layers: dict[str, list[int]] = field(default_factory=dict)
 
-    def get_recommended_layers(self, behavior: str) -> List[int]:
+    def get_recommended_layers(self, behavior: str) -> list[int]:
         """Get recommended layers for a behavior, or middle layers as default."""
         if behavior in self.recommended_layers:
             return self.recommended_layers[behavior]
@@ -32,7 +31,7 @@ class ModelConfig:
 
 
 # Pre-configured models
-MODEL_CONFIGS: Dict[str, ModelConfig] = {
+MODEL_CONFIGS: dict[str, ModelConfig] = {
     # Qwen3 family
     "Qwen/Qwen3-8B": ModelConfig(
         name="Qwen/Qwen3-8B",

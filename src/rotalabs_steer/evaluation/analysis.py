@@ -6,15 +6,14 @@ import json
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable
 
-import torch
 from tqdm import tqdm
 from transformers import PreTrainedModel, PreTrainedTokenizer
 
 from ..core.injection import ActivationInjector
 from ..core.vectors import SteeringVector
-from .metrics import EvaluationResult, RefusalMetrics, generate_response
+from .metrics import generate_response
 
 
 @dataclass
@@ -29,7 +28,7 @@ class TradeoffResult:
     latency_ms: float
     num_samples: int
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "strength": self.strength,
             "target_behavior_rate": self.target_behavior_rate,
@@ -45,11 +44,11 @@ def strength_sweep(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizer,
     steering_vector: SteeringVector,
-    test_prompts: List[str],
+    test_prompts: list[str],
     is_target_behavior_fn: Callable[[str], bool],
-    strengths: List[float] = [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0],
+    strengths: list[float] = None,
     show_progress: bool = True,
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     """
     Evaluate steering at multiple strengths.
 
@@ -65,6 +64,8 @@ def strength_sweep(
     Returns:
         List of results for each strength
     """
+    if strengths is None:
+        strengths = [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0]
     device = next(model.parameters()).device
     results = []
 
@@ -75,7 +76,7 @@ def strength_sweep(
         if strength == 0.0:
             # baseline without injection
             iterator = tqdm(
-                test_prompts, desc=f"Baseline", disable=not show_progress
+                test_prompts, desc="Baseline", disable=not show_progress
             )
             for prompt in iterator:
                 start = time.time()
@@ -114,15 +115,15 @@ def analyze_tradeoffs(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizer,
     steering_vector: SteeringVector,
-    target_prompts: List[str],  # prompts where we want target behavior
-    control_prompts: List[str],  # prompts where we don't want target behavior
+    target_prompts: list[str],  # prompts where we want target behavior
+    control_prompts: list[str],  # prompts where we don't want target behavior
     is_target_behavior_fn: Callable[[str], bool],
-    coherence_fn: Optional[Callable[[str], float]] = None,
-    helpfulness_fn: Optional[Callable[[str, str], float]] = None,
-    strengths: List[float] = [0.0, 0.5, 1.0, 1.5, 2.0],
+    coherence_fn: Callable[[str], float] | None = None,
+    helpfulness_fn: Callable[[str, str], float] | None = None,
+    strengths: list[float] = None,
     show_progress: bool = True,
-    system_prompt: Optional[str] = None,
-) -> List[TradeoffResult]:
+    system_prompt: str | None = None,
+) -> list[TradeoffResult]:
     """
     Comprehensive tradeoff analysis.
 
@@ -150,6 +151,8 @@ def analyze_tradeoffs(
     """
     from .llm_judge import _heuristic_coherence
 
+    if strengths is None:
+        strengths = [0.0, 0.5, 1.0, 1.5, 2.0]
     device = next(model.parameters()).device
 
     if coherence_fn is None:
@@ -228,11 +231,11 @@ def analyze_tradeoffs(
 
 
 def find_optimal_strength(
-    results: List[TradeoffResult],
+    results: list[TradeoffResult],
     min_target_rate: float = 0.9,
     max_false_positive_rate: float = 0.1,
     min_coherence: float = 0.7,
-) -> Optional[float]:
+) -> float | None:
     """
     Find optimal strength given constraints.
 
@@ -263,9 +266,9 @@ def find_optimal_strength(
 
 
 def save_analysis_results(
-    results: List[TradeoffResult],
+    results: list[TradeoffResult],
     path: Path,
-    metadata: Optional[Dict[str, Any]] = None,
+    metadata: dict[str, Any] | None = None,
 ):
     """Save analysis results to JSON file."""
     data = {
@@ -280,7 +283,7 @@ def save_analysis_results(
         json.dump(data, f, indent=2)
 
 
-def load_analysis_results(path: Path) -> List[TradeoffResult]:
+def load_analysis_results(path: Path) -> list[TradeoffResult]:
     """Load analysis results from JSON file."""
     with open(path) as f:
         data = json.load(f)
@@ -292,10 +295,10 @@ def load_analysis_results(path: Path) -> List[TradeoffResult]:
 
 
 def compare_with_baseline(
-    steered_results: List[TradeoffResult],
+    steered_results: list[TradeoffResult],
     baseline_rate: float,
     baseline_false_positive: float = 0.0,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Compare steered results with a baseline (e.g., prompting).
 

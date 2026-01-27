@@ -6,7 +6,7 @@ import json
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import torch
 
@@ -20,7 +20,7 @@ class SteeringVector:
     vector: torch.Tensor
     model_name: str
     extraction_method: str = "caa"
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self):
         if "created_at" not in self.metadata:
@@ -36,7 +36,7 @@ class SteeringVector:
         """Dimension of the vector."""
         return self.vector.shape[-1]
 
-    def normalize(self) -> "SteeringVector":
+    def normalize(self) -> SteeringVector:
         """Return L2-normalized copy."""
         normalized = self.vector / self.vector.norm()
         return SteeringVector(
@@ -48,7 +48,7 @@ class SteeringVector:
             metadata={**self.metadata, "normalized": True},
         )
 
-    def scale(self, factor: float) -> "SteeringVector":
+    def scale(self, factor: float) -> SteeringVector:
         """Return scaled copy."""
         return SteeringVector(
             behavior=self.behavior,
@@ -59,7 +59,7 @@ class SteeringVector:
             metadata={**self.metadata, "scale_factor": factor},
         )
 
-    def to(self, device: str) -> "SteeringVector":
+    def to(self, device: str) -> SteeringVector:
         """Move vector to device."""
         return SteeringVector(
             behavior=self.behavior,
@@ -92,7 +92,7 @@ class SteeringVector:
         torch.save(self.vector, path.with_suffix(".pt"))
 
     @classmethod
-    def load(cls, path: Path) -> "SteeringVector":
+    def load(cls, path: Path) -> SteeringVector:
         """Load vector from file."""
         path = Path(path)
 
@@ -125,9 +125,9 @@ class SteeringVector:
 class SteeringVectorSet:
     """Collection of steering vectors for a behavior across multiple layers."""
 
-    def __init__(self, behavior: str, vectors: Optional[List[SteeringVector]] = None):
+    def __init__(self, behavior: str, vectors: list[SteeringVector] | None = None):
         self.behavior = behavior
-        self._vectors: Dict[int, SteeringVector] = {}
+        self._vectors: dict[int, SteeringVector] = {}
 
         if vectors:
             for v in vectors:
@@ -141,7 +141,7 @@ class SteeringVectorSet:
             raise ValueError(f"Vector behavior mismatch: {vector.behavior} != {self.behavior}")
         self._vectors[vector.layer_index] = vector
 
-    def get(self, layer_index: int) -> Optional[SteeringVector]:
+    def get(self, layer_index: int) -> SteeringVector | None:
         """Get vector for specific layer."""
         return self._vectors.get(layer_index)
 
@@ -156,21 +156,21 @@ class SteeringVectorSet:
             raise ValueError(f"Unknown metric: {metric}")
 
     @property
-    def layers(self) -> List[int]:
+    def layers(self) -> list[int]:
         """List of layer indices with vectors."""
         return sorted(self._vectors.keys())
 
     @property
-    def model_name(self) -> Optional[str]:
+    def model_name(self) -> str | None:
         """Model name (from first vector)."""
         if self._vectors:
             return next(iter(self._vectors.values())).model_name
         return None
 
-    def to(self, device: str) -> "SteeringVectorSet":
+    def to(self, device: str) -> SteeringVectorSet:
         """Move all vectors to device."""
         new_set = SteeringVectorSet(self.behavior)
-        for layer_idx, vec in self._vectors.items():
+        for _layer_idx, vec in self._vectors.items():
             new_set.add(vec.to(device))
         return new_set
 
@@ -193,7 +193,7 @@ class SteeringVectorSet:
             json.dump(meta, f, indent=2)
 
     @classmethod
-    def load(cls, dir_path: Path) -> "SteeringVectorSet":
+    def load(cls, dir_path: Path) -> SteeringVectorSet:
         """Load all vectors from directory."""
         dir_path = Path(dir_path)
 

@@ -7,7 +7,6 @@ These pairs contrast:
 The goal is to extract a vector that makes models express calibrated uncertainty.
 """
 
-from typing import List
 
 from .base import ContrastPair, ContrastPairDataset
 

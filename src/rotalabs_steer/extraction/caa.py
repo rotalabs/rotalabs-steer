@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional, Union
+from typing import Literal
 
 import torch
-from torch import nn
 from tqdm import tqdm
 from transformers import PreTrainedModel, PreTrainedTokenizer
 
@@ -17,7 +16,7 @@ from ..datasets.base import ContrastPairDataset
 def extract_caa_vector(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizer,
-    contrast_pairs: Union[ContrastPairDataset, List[dict]],
+    contrast_pairs: ContrastPairDataset | list[dict],
     layer_idx: int,
     token_position: Literal["last", "first", "mean"] = "last",
     batch_size: int = 1,  # not actually used yet, kept for API compat
@@ -131,8 +130,8 @@ def _get_activation(
 def extract_caa_vectors(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizer,
-    contrast_pairs: Union[ContrastPairDataset, List[dict]],
-    layer_indices: List[int],
+    contrast_pairs: ContrastPairDataset | list[dict],
+    layer_indices: list[int],
     token_position: Literal["last", "first", "mean"] = "last",
     show_progress: bool = True,
 ) -> SteeringVectorSet:

@@ -4,8 +4,7 @@ from __future__ import annotations
 
 import os
 import re
-from functools import lru_cache
-from typing import List, Literal, Optional, Tuple
+from typing import Literal
 
 try:
     import anthropic
@@ -28,7 +27,7 @@ class LLMJudge:
     def __init__(
         self,
         model: str = "claude-sonnet-4-20250514",
-        api_key: Optional[str] = None,
+        api_key: str | None = None,
         cache_responses: bool = True,
     ):
         if not HAS_ANTHROPIC:
@@ -154,7 +153,7 @@ Respond with only a single number from 0 to 10."""
 
     def classify_response(
         self, response: str
-    ) -> Tuple[Literal["refusal", "compliance", "unclear"], float]:
+    ) -> tuple[Literal["refusal", "compliance", "unclear"], float]:
         """
         Classify response with confidence score.
 
@@ -198,10 +197,10 @@ CONFIDENCE: [0-100]"""
 
     def evaluate_batch(
         self,
-        responses: List[str],
+        responses: list[str],
         check_refusal: bool = True,
         check_coherence: bool = True,
-    ) -> List[dict]:
+    ) -> list[dict]:
         """
         Evaluate a batch of responses.
 

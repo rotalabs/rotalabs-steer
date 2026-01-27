@@ -1,6 +1,6 @@
 """Refusal behavior contrast pairs for steering vector extraction."""
 
-from .base import ContrastPair, ContrastPairDataset
+from .base import ContrastPairDataset
 
 # Format: Each pair has same user request, different assistant responses
 # Positive = refuses (target behavior), Negative = complies

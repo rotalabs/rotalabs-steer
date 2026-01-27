@@ -6,12 +6,11 @@ to control LLM agent behaviors at inference time, without retraining.
 """
 
 from rotalabs_steer._version import __version__
-
 from rotalabs_steer.core import (
+    MODEL_CONFIGS,
     ActivationCache,
     ActivationHook,
     ActivationInjector,
-    MODEL_CONFIGS,
     ModelConfig,
     MultiVectorInjector,
     SteeringVector,

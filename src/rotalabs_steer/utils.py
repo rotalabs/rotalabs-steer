@@ -2,10 +2,8 @@
 
 from __future__ import annotations
 
-import os
 import shutil
 from pathlib import Path
-from typing import List, Optional
 
 # Default HuggingFace repository for pre-extracted vectors
 DEFAULT_VECTORS_REPO = "rotalabs/steering-vectors"
@@ -14,7 +12,7 @@ DEFAULT_VECTORS_REPO = "rotalabs/steering-vectors"
 def download_vectors(
     behavior: str,
     model_name: str,
-    output_dir: Optional[Path] = None,
+    output_dir: Path | None = None,
     repo_id: str = DEFAULT_VECTORS_REPO,
     revision: str = "main",
     force: bool = False,
@@ -46,12 +44,12 @@ def download_vectors(
         ```
     """
     try:
-        from huggingface_hub import hf_hub_download, snapshot_download
-    except ImportError:
+        from huggingface_hub import snapshot_download
+    except ImportError as err:
         raise ImportError(
             "huggingface_hub package required for downloading vectors. "
             "Install with: pip install huggingface_hub"
-        )
+        ) from err
 
     # default output directory
     if output_dir is None:
@@ -82,7 +80,7 @@ def download_vectors(
     except Exception as e:
         raise RuntimeError(
             f"Failed to download vectors for {behavior}/{model_name} from {repo_id}: {e}"
-        )
+        ) from e
 
     if not metadata_file.exists():
         raise FileNotFoundError(
@@ -95,7 +93,7 @@ def download_vectors(
 
 def list_available_vectors(
     repo_id: str = DEFAULT_VECTORS_REPO,
-) -> List[dict]:
+) -> list[dict]:
     """
     List available pre-extracted vectors in the HuggingFace repository.
 
@@ -116,17 +114,17 @@ def list_available_vectors(
     """
     try:
         from huggingface_hub import HfApi
-    except ImportError:
+    except ImportError as err:
         raise ImportError(
             "huggingface_hub package required. Install with: pip install huggingface_hub"
-        )
+        ) from err
 
     api = HfApi()
 
     try:
         files = api.list_repo_files(repo_id=repo_id, repo_type="dataset")
     except Exception as e:
-        raise RuntimeError(f"Failed to list files in {repo_id}: {e}")
+        raise RuntimeError(f"Failed to list files in {repo_id}: {e}") from e
 
     # parse file structure to find available vectors
     vectors = []

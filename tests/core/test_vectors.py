@@ -1,6 +1,5 @@
 """Tests for steering vectors."""
 
-import json
 import tempfile
 from pathlib import Path
 

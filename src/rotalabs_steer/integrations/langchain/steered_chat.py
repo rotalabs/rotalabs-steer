@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict, Iterator, List, Optional, Union
+from typing import Any
 
 import torch
 from langchain_core.callbacks import CallbackManagerForLLMRun
@@ -46,7 +46,7 @@ class SteeredChatModel(BaseChatModel):
     """
 
     model_name: str = Field(description="HuggingFace model name or path")
-    steering_configs: Dict[str, Dict[str, Any]] = Field(
+    steering_configs: dict[str, dict[str, Any]] = Field(
         default_factory=dict,
         description="Steering configurations: {behavior: {vector_path, strength}}"
     )
@@ -59,8 +59,8 @@ class SteeredChatModel(BaseChatModel):
     # private attributes
     _model: Any = PrivateAttr(default=None)
     _tokenizer: Any = PrivateAttr(default=None)
-    _vectors: Dict[str, SteeringVector] = PrivateAttr(default_factory=dict)
-    _injector: Optional[MultiVectorInjector] = PrivateAttr(default=None)
+    _vectors: dict[str, SteeringVector] = PrivateAttr(default_factory=dict)
+    _injector: MultiVectorInjector | None = PrivateAttr(default=None)
     _initialized: bool = PrivateAttr(default=False)
 
     def __init__(self, **kwargs):
@@ -142,15 +142,15 @@ class SteeredChatModel(BaseChatModel):
         return "steered_chat_model"
 
     @property
-    def _identifying_params(self) -> Dict[str, Any]:
+    def _identifying_params(self) -> dict[str, Any]:
         return {
             "model_name": self.model_name,
             "steering_configs": self.steering_configs,
         }
 
     def _convert_messages_to_chat_format(
-        self, messages: List[BaseMessage]
-    ) -> List[Dict[str, str]]:
+        self, messages: list[BaseMessage]
+    ) -> list[dict[str, str]]:
         """Convert LangChain messages to HuggingFace chat format."""
         chat_messages = []
 
@@ -169,9 +169,9 @@ class SteeredChatModel(BaseChatModel):
 
     def _generate(
         self,
-        messages: List[BaseMessage],
-        stop: Optional[List[str]] = None,
-        run_manager: Optional[CallbackManagerForLLMRun] = None,
+        messages: list[BaseMessage],
+        stop: list[str] | None = None,
+        run_manager: CallbackManagerForLLMRun | None = None,
         **kwargs,
     ) -> ChatResult:
         """Generate a response for the given messages."""
@@ -230,7 +230,7 @@ class SteeredChatModel(BaseChatModel):
             return self._injector.strengths.get(behavior, 0.0)
         return 0.0
 
-    def disable_steering(self, behavior: Optional[str] = None):
+    def disable_steering(self, behavior: str | None = None):
         """Disable steering for a specific behavior or all."""
         if self._injector is None:
             return
@@ -247,7 +247,7 @@ class SteeredChatModel(BaseChatModel):
     def add_vector(
         self,
         behavior: str,
-        vector: Union[SteeringVector, str, Path],
+        vector: SteeringVector | str | Path,
         strength: float = 1.0,
     ):
         """Add a steering vector at runtime."""

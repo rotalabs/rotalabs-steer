@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import torch
 from tqdm import tqdm
@@ -23,7 +23,7 @@ class BehaviorMetrics:
     def __post_init__(self):
         self.improvement = self.target_rate - self.baseline_rate
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "behavior": self.behavior,
             "strength": self.strength,
@@ -67,7 +67,7 @@ class RefusalMetrics(BehaviorMetrics):
         else:
             self.f1_score = 0.0
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         base = super().to_dict()
         base.update({
             "refusal_rate_harmful": self.refusal_rate_harmful,
@@ -89,8 +89,8 @@ class EvaluationResult:
     is_target_behavior: bool
     is_harmful_prompt: bool
     strength: float
-    coherence: Optional[float] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    coherence: float | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 def generate_response(
@@ -99,7 +99,7 @@ def generate_response(
     prompt: str,
     max_new_tokens: int = 150,
     temperature: float = 0.0,
-    system_prompt: Optional[str] = None,
+    system_prompt: str | None = None,
 ) -> str:
     """Generate a response from the model."""
     device = next(model.parameters()).device
@@ -161,11 +161,11 @@ def generate_response(
 def evaluate_refusal(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizer,
-    harmful_prompts: List[str],
-    benign_prompts: List[str],
+    harmful_prompts: list[str],
+    benign_prompts: list[str],
     is_refusal_fn: callable,
-    steering_vector: Optional[Any] = None,
-    injector: Optional[Any] = None,
+    steering_vector: Any | None = None,
+    injector: Any | None = None,
     strength: float = 1.0,
     show_progress: bool = True,
 ) -> RefusalMetrics:
@@ -223,15 +223,17 @@ def evaluate_refusal(
 def evaluate_steering_strength(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizer,
-    prompts: List[str],
+    prompts: list[str],
     steering_vector: Any,
     is_target_behavior_fn: callable,
-    strengths: List[float] = [0.0, 0.5, 1.0, 1.5, 2.0],
+    strengths: list[float] = None,
     show_progress: bool = True,
-) -> List[BehaviorMetrics]:
+) -> list[BehaviorMetrics]:
     """Evaluate steering effectiveness at multiple strengths."""
     from ..core.injection import ActivationInjector
 
+    if strengths is None:
+        strengths = [0.0, 0.5, 1.0, 1.5, 2.0]
     device = next(model.parameters()).device
     results = []
 
