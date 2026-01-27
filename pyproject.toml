@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "rotalabs-steer"
-version = "0.1.1"
+version = "0.1.2"
 description = "Control agent behaviors through activation steering - Apply steering vectors to LLMs at inference time without retraining"
 readme = "README.md"
 license = "MIT"
