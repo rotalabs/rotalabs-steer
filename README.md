@@ -10,6 +10,7 @@ Control agent behaviors through activation steering. Apply steering vectors to L
 
 - **Behavior Control**: Adjust model behaviors like refusal, uncertainty expression, tool use restraint, and instruction hierarchy following
 - **No Retraining Required**: Apply steering at inference time through activation manipulation
+- **Pre-extracted Vectors**: Ready-to-use vectors on [HuggingFace](https://huggingface.co/rotalabs/steering-vectors)
 - **LangChain Integration**: Use with LangChain agents and chains (optional dependency)
 - **Pre-built Datasets**: Includes contrast pair datasets for common behaviors
 - **Evaluation Tools**: Measure steering effectiveness and analyze tradeoffs
@@ -42,6 +43,32 @@ pip install rotalabs-steer[dev]
 ```
 
 ## Quick Start
+
+### Use Pre-extracted Vectors (Easiest)
+
+```python
+from huggingface_hub import hf_hub_download
+from rotalabs_steer import SteeringVector, ActivationInjector
+
+# Download pre-extracted vector from HuggingFace
+vector_path = hf_hub_download(
+    repo_id="rotalabs/steering-vectors",
+    filename="refusal_qwen3_8b/layer_15.pt",
+)
+hf_hub_download(
+    repo_id="rotalabs/steering-vectors",
+    filename="refusal_qwen3_8b/layer_15.json",
+)
+
+# Load and apply
+vector = SteeringVector.load(vector_path.replace('.pt', ''))
+injector = ActivationInjector(model, [vector], strength=1.0)
+
+with injector:
+    outputs = model.generate(**inputs)
+```
+
+Available vectors: `refusal`, `uncertainty`, `tool_restraint`, `hierarchy` for Qwen3-8B, Mistral-7B, Gemma-2-9B. See [HuggingFace](https://huggingface.co/rotalabs/steering-vectors) for full list.
 
 ### Extract a Steering Vector
 
@@ -231,7 +258,8 @@ MIT License - see [LICENSE](LICENSE) for details.
 ## Links
 
 - Documentation: https://rotalabs.github.io/rotalabs-steer/
-- Website: https://rotalabs.ai
-- GitHub: https://github.com/rotalabs/rotalabs-steer
+- Pre-extracted Vectors: https://huggingface.co/rotalabs/steering-vectors
 - PyPI: https://pypi.org/project/rotalabs-steer/
+- GitHub: https://github.com/rotalabs/rotalabs-steer
+- Website: https://rotalabs.ai
 - Contact: research@rotalabs.ai
