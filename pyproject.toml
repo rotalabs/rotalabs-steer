@@ -70,6 +70,11 @@ dev = [
     "ruff>=0.1.0",
     "mypy>=1.5.0",
 ]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.4.0",
+    "mkdocstrings[python]>=0.24.0",
+]
 all = [
     "rotalabs-steer[langchain,judge,viz]",
 ]

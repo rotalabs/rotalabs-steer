@@ -58,6 +58,15 @@ markdown_extensions:
 
 plugins:
   - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+            show_bases: true
+            show_signature_annotations: true
+            members_order: source
 
 extra:
   social:
