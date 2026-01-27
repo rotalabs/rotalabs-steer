@@ -77,7 +77,7 @@ all = [
 [project.urls]
 Homepage = "https://rotalabs.ai"
 Repository = "https://github.com/rotalabs/rotalabs-steer"
-Documentation = "https://github.com/rotalabs/rotalabs-steer#readme"
+Documentation = "https://rotalabs.github.io/rotalabs-steer/"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/rotalabs_steer"]

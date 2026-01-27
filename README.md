@@ -230,6 +230,8 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Links
 
+- Documentation: https://rotalabs.github.io/rotalabs-steer/
 - Website: https://rotalabs.ai
 - GitHub: https://github.com/rotalabs/rotalabs-steer
+- PyPI: https://pypi.org/project/rotalabs-steer/
 - Contact: research@rotalabs.ai
