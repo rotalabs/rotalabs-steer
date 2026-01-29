@@ -894,6 +894,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#humor-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Humor Pairs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empathy-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Empathy Pairs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-depth-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Depth Pairs
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1348,6 +1375,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#humor-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Humor Pairs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empathy-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Empathy Pairs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-depth-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Depth Pairs
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1571,34 +1625,55 @@
 <a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="n">assertiveness_pairs</span> <span class="o">=</span> <span class="n">load_assertiveness_pairs</span><span class="p">()</span>
 </code></pre></div>
 <p>Contrasts direct, confident responses vs. hedging, passive responses.</p>
+<h3 id="humor-pairs">Humor Pairs<a class="headerlink" href="#humor-pairs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rotalabs_steer.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_humor_pairs</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1"># Returns ContrastPairDataset with ~31 pairs</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">humor_pairs</span> <span class="o">=</span> <span class="n">load_humor_pairs</span><span class="p">()</span>
+</code></pre></div>
+<p>Contrasts witty, playful responses vs. serious, straightforward responses.</p>
+<h3 id="empathy-pairs">Empathy Pairs<a class="headerlink" href="#empathy-pairs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rotalabs_steer.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_empathy_pairs</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="c1"># Returns ContrastPairDataset with ~28 pairs</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="n">empathy_pairs</span> <span class="o">=</span> <span class="n">load_empathy_pairs</span><span class="p">()</span>
+</code></pre></div>
+<p>Contrasts warm, emotionally supportive responses vs. detached, clinical responses.</p>
+<h3 id="technical-depth-pairs">Technical Depth Pairs<a class="headerlink" href="#technical-depth-pairs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rotalabs_steer.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_technical_depth_pairs</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># Returns ContrastPairDataset with ~22 pairs</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="n">technical_depth_pairs</span> <span class="o">=</span> <span class="n">load_technical_depth_pairs</span><span class="p">()</span>
+</code></pre></div>
+<p>Contrasts detailed, expert-level technical responses vs. simplified, beginner-friendly responses.</p>
 <hr />
 <h2 id="creating-custom-datasets">Creating Custom Datasets<a class="headerlink" href="#creating-custom-datasets" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rotalabs_steer.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">ContrastPairDataset</span><span class="p">,</span> <span class="n">ContrastPair</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1"># Create empty dataset</span>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">dataset</span> <span class="o">=</span> <span class="n">ContrastPairDataset</span><span class="p">(</span>
-<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    <span class="n">behavior</span><span class="o">=</span><span class="s2">&quot;custom_behavior&quot;</span><span class="p">,</span>
-<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;My custom behavior dataset&quot;</span><span class="p">,</span>
-<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="p">)</span>
-<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>
-<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="c1"># Add pairs</span>
-<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="n">dataset</span><span class="o">.</span><span class="n">add_pair</span><span class="p">(</span>
-<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>    <span class="n">positive</span><span class="o">=</span><span class="s2">&quot;Response exhibiting the behavior&quot;</span><span class="p">,</span>
-<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>    <span class="n">negative</span><span class="o">=</span><span class="s2">&quot;Response NOT exhibiting the behavior&quot;</span><span class="p">,</span>
-<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="p">)</span>
-<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>
-<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a><span class="c1"># Or add ContrastPair objects</span>
-<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a><span class="n">dataset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ContrastPair</span><span class="p">(</span>
-<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>    <span class="n">positive</span><span class="o">=</span><span class="s2">&quot;Another positive example&quot;</span><span class="p">,</span>
-<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>    <span class="n">negative</span><span class="o">=</span><span class="s2">&quot;Another negative example&quot;</span><span class="p">,</span>
-<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>    <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;manual&quot;</span><span class="p">},</span>
-<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a><span class="p">))</span>
-<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>
-<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a><span class="c1"># Save for later</span>
-<a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a><span class="n">dataset</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;./my_dataset.json&quot;</span><span class="p">)</span>
-<a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a>
-<a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a><span class="c1"># Load</span>
-<a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a><span class="n">loaded</span> <span class="o">=</span> <span class="n">ContrastPairDataset</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;./my_dataset.json&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rotalabs_steer.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">ContrastPairDataset</span><span class="p">,</span> <span class="n">ContrastPair</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="c1"># Create empty dataset</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="n">dataset</span> <span class="o">=</span> <span class="n">ContrastPairDataset</span><span class="p">(</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="n">behavior</span><span class="o">=</span><span class="s2">&quot;custom_behavior&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;My custom behavior dataset&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="p">)</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="c1"># Add pairs</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="n">dataset</span><span class="o">.</span><span class="n">add_pair</span><span class="p">(</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>    <span class="n">positive</span><span class="o">=</span><span class="s2">&quot;Response exhibiting the behavior&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>    <span class="n">negative</span><span class="o">=</span><span class="s2">&quot;Response NOT exhibiting the behavior&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="p">)</span>
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a><span class="c1"># Or add ContrastPair objects</span>
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a><span class="n">dataset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ContrastPair</span><span class="p">(</span>
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>    <span class="n">positive</span><span class="o">=</span><span class="s2">&quot;Another positive example&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>    <span class="n">negative</span><span class="o">=</span><span class="s2">&quot;Another negative example&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>    <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;manual&quot;</span><span class="p">},</span>
+<a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a><span class="p">))</span>
+<a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a>
+<a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a><span class="c1"># Save for later</span>
+<a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a><span class="n">dataset</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;./my_dataset.json&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a>
+<a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a><span class="c1"># Load</span>
+<a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a><span class="n">loaded</span> <span class="o">=</span> <span class="n">ContrastPairDataset</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;./my_dataset.json&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 
