@@ -2,6 +2,9 @@
 
 Build your own contrast pair datasets for custom behaviors.
 
+!!! tip "Built-in Behaviors"
+    The package includes 8 pre-built behaviors: `refusal`, `uncertainty`, `tool_restraint`, `instruction_hierarchy`, `formality`, `conciseness`, `creativity`, and `assertiveness`. Check [Datasets API](../api/datasets.md) before creating custom datasets.
+
 ## Understanding Contrast Pairs
 
 A contrast pair consists of:

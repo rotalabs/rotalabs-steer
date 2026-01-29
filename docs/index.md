@@ -34,12 +34,18 @@ rotalabs_steer/
 
 ## Supported Behaviors
 
-| Behavior | Description |
-|----------|-------------|
-| `refusal` | Refusing harmful or inappropriate requests |
-| `uncertainty` | Expressing calibrated uncertainty |
-| `tool_restraint` | Avoiding unnecessary tool use |
-| `instruction_hierarchy` | Following system over user instructions |
+The package includes contrast pair datasets for 8 behaviors (254 total pairs):
+
+| Behavior | Description | Pairs |
+|----------|-------------|-------|
+| `refusal` | Refusing harmful or inappropriate requests | 50 |
+| `uncertainty` | Expressing calibrated uncertainty | 26 |
+| `tool_restraint` | Avoiding unnecessary tool use | 41 |
+| `instruction_hierarchy` | Following system over user instructions | 26 |
+| `formality` | Formal vs casual communication style | 29 |
+| `conciseness` | Brief, direct vs verbose responses | 25 |
+| `creativity` | Imaginative vs conventional responses | 30 |
+| `assertiveness` | Direct, confident vs hedging responses | 27 |
 
 ## Supported Models
 

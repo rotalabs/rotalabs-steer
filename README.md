@@ -1,5 +1,12 @@
 # rotalabs-steer
 
+[![PyPI version](https://img.shields.io/pypi/v/rotalabs-steer.svg)](https://pypi.org/project/rotalabs-steer/)
+[![Python versions](https://img.shields.io/pypi/pyversions/rotalabs-steer.svg)](https://pypi.org/project/rotalabs-steer/)
+[![License](https://img.shields.io/pypi/l/rotalabs-steer.svg)](https://github.com/rotalabs/rotalabs-steer/blob/main/LICENSE)
+[![Tests](https://github.com/rotalabs/rotalabs-steer/actions/workflows/tests.yml/badge.svg)](https://github.com/rotalabs/rotalabs-steer/actions/workflows/tests.yml)
+[![Documentation](https://img.shields.io/badge/docs-rotalabs.github.io-blue.svg)](https://rotalabs.github.io/rotalabs-steer/)
+[![HuggingFace](https://img.shields.io/badge/🤗-Steering_Vectors-yellow.svg)](https://huggingface.co/rotalabs/steering-vectors)
+
 Control agent behaviors through activation steering. Apply steering vectors to LLMs at inference time without retraining.
 
 ## Overview
@@ -8,7 +15,7 @@ Control agent behaviors through activation steering. Apply steering vectors to L
 
 ### Key Features
 
-- **Behavior Control**: Adjust model behaviors like refusal, uncertainty expression, tool use restraint, and instruction hierarchy following
+- **Behavior Control**: Adjust model behaviors including refusal, uncertainty, tool restraint, instruction hierarchy, formality, conciseness, creativity, and assertiveness
 - **No Retraining Required**: Apply steering at inference time through activation manipulation
 - **Pre-extracted Vectors**: Ready-to-use vectors on [HuggingFace](https://huggingface.co/rotalabs/steering-vectors)
 - **LangChain Integration**: Use with LangChain agents and chains (optional dependency)
@@ -145,14 +152,18 @@ chat.set_strength("refusal", 0.5)
 
 ## Available Behaviors
 
-The package includes contrast pair datasets for several behaviors:
+The package includes contrast pair datasets for 8 behaviors (254 total pairs):
 
-| Behavior | Description | Dataset Function |
-|----------|-------------|------------------|
-| `refusal` | Refusing harmful/inappropriate requests | `load_refusal_pairs()` |
-| `uncertainty` | Expressing calibrated uncertainty | `load_uncertainty_pairs()` |
-| `tool_restraint` | Avoiding unnecessary tool use | `load_tool_restraint_pairs()` |
-| `instruction_hierarchy` | Following system over user instructions | `load_hierarchy_pairs()` |
+| Behavior | Description | Pairs | Dataset Function |
+|----------|-------------|-------|------------------|
+| `refusal` | Refusing harmful/inappropriate requests | 50 | `load_refusal_pairs()` |
+| `uncertainty` | Expressing calibrated uncertainty | 26 | `load_uncertainty_pairs()` |
+| `tool_restraint` | Avoiding unnecessary tool use | 41 | `load_tool_restraint_pairs()` |
+| `instruction_hierarchy` | Following system over user instructions | 26 | `load_hierarchy_pairs()` |
+| `formality` | Formal vs casual communication style | 29 | `load_formality_pairs()` |
+| `conciseness` | Brief vs verbose responses | 25 | `load_conciseness_pairs()` |
+| `creativity` | Imaginative vs conventional responses | 30 | `load_creativity_pairs()` |
+| `assertiveness` | Direct vs hedging responses | 27 | `load_assertiveness_pairs()` |
 
 ## Model Support
 

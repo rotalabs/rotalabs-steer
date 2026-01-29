@@ -204,6 +204,50 @@ hierarchy_pairs = load_hierarchy_pairs()
 
 Contrasts following user instructions that conflict with system instructions vs. maintaining system instruction priority.
 
+### Formality Pairs
+
+```python
+from rotalabs_steer.datasets import load_formality_pairs
+
+# Returns ContrastPairDataset with ~29 pairs
+formality_pairs = load_formality_pairs()
+```
+
+Contrasts formal, professional communication vs. casual, informal style.
+
+### Conciseness Pairs
+
+```python
+from rotalabs_steer.datasets import load_conciseness_pairs
+
+# Returns ContrastPairDataset with ~25 pairs
+conciseness_pairs = load_conciseness_pairs()
+```
+
+Contrasts brief, direct responses vs. verbose, overly detailed responses.
+
+### Creativity Pairs
+
+```python
+from rotalabs_steer.datasets import load_creativity_pairs
+
+# Returns ContrastPairDataset with ~30 pairs
+creativity_pairs = load_creativity_pairs()
+```
+
+Contrasts imaginative, novel responses vs. conventional, generic responses.
+
+### Assertiveness Pairs
+
+```python
+from rotalabs_steer.datasets import load_assertiveness_pairs
+
+# Returns ContrastPairDataset with ~27 pairs
+assertiveness_pairs = load_assertiveness_pairs()
+```
+
+Contrasts direct, confident responses vs. hedging, passive responses.
+
 ---
 
 ## Creating Custom Datasets

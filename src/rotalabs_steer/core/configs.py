@@ -42,6 +42,11 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "uncertainty": [12, 13, 14, 15, 16],
             "tool_restraint": [16, 17, 18, 19, 20],
             "instruction_hierarchy": [14, 15, 16, 17, 18],
+            # Style behaviors
+            "formality": [14, 15, 16, 17, 18],
+            "conciseness": [10, 11, 12, 13, 14],
+            "creativity": [18, 19, 20, 21, 22],
+            "assertiveness": [12, 13, 14, 15, 16],
         },
     ),
     "Qwen/Qwen3-4B": ModelConfig(
@@ -53,6 +58,11 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "uncertainty": [12, 13, 14, 15, 16],
             "tool_restraint": [16, 17, 18, 19, 20],
             "instruction_hierarchy": [14, 15, 16, 17, 18],
+            # Style behaviors
+            "formality": [14, 15, 16, 17, 18],
+            "conciseness": [10, 11, 12, 13, 14],
+            "creativity": [18, 19, 20, 21, 22],
+            "assertiveness": [12, 13, 14, 15, 16],
         },
     ),
     "Qwen/Qwen3-14B": ModelConfig(
@@ -64,6 +74,11 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "uncertainty": [16, 17, 18, 19, 20],
             "tool_restraint": [22, 23, 24, 25, 26],
             "instruction_hierarchy": [20, 21, 22, 23, 24],
+            # Style behaviors
+            "formality": [20, 21, 22, 23, 24],
+            "conciseness": [14, 15, 16, 17, 18],
+            "creativity": [24, 25, 26, 27, 28],
+            "assertiveness": [16, 17, 18, 19, 20],
         },
     ),
     # DeepSeek
@@ -76,6 +91,11 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "uncertainty": [16, 17, 18, 19, 20],
             "tool_restraint": [22, 23, 24, 25, 26],
             "instruction_hierarchy": [20, 21, 22, 23, 24],
+            # Style behaviors
+            "formality": [20, 21, 22, 23, 24],
+            "conciseness": [14, 15, 16, 17, 18],
+            "creativity": [24, 25, 26, 27, 28],
+            "assertiveness": [16, 17, 18, 19, 20],
         },
     ),
     # Llama family (for reference)
@@ -88,6 +108,11 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "uncertainty": [12, 13, 14],
             "tool_restraint": [16, 17, 18],
             "instruction_hierarchy": [14, 15, 16],
+            # Style behaviors
+            "formality": [14, 15, 16],
+            "conciseness": [10, 11, 12],
+            "creativity": [16, 17, 18],
+            "assertiveness": [12, 13, 14],
         },
     ),
     "meta-llama/Llama-3.1-70B-Instruct": ModelConfig(
@@ -99,6 +124,11 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "uncertainty": [30, 31, 32, 33, 34, 35],
             "tool_restraint": [40, 41, 42, 43, 44, 45],
             "instruction_hierarchy": [35, 36, 37, 38, 39, 40],
+            # Style behaviors
+            "formality": [35, 36, 37, 38, 39, 40],
+            "conciseness": [25, 26, 27, 28, 29, 30],
+            "creativity": [40, 41, 42, 43, 44, 45],
+            "assertiveness": [30, 31, 32, 33, 34, 35],
         },
     ),
     # Mistral
@@ -111,6 +141,11 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "uncertainty": [10, 12, 14, 16],
             "tool_restraint": [14, 16, 18, 20],
             "instruction_hierarchy": [12, 14, 16, 18],
+            # Style behaviors
+            "formality": [12, 14, 16, 18],
+            "conciseness": [8, 10, 12, 14],
+            "creativity": [16, 18, 20, 22],
+            "assertiveness": [10, 12, 14, 16],
         },
     ),
     "mistralai/Mistral-7B-Instruct-v0.3": ModelConfig(
@@ -122,6 +157,11 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "uncertainty": [10, 12, 14, 16],
             "tool_restraint": [14, 16, 18, 20],
             "instruction_hierarchy": [12, 14, 16, 18],
+            # Style behaviors
+            "formality": [12, 14, 16, 18],
+            "conciseness": [8, 10, 12, 14],
+            "creativity": [16, 18, 20, 22],
+            "assertiveness": [10, 12, 14, 16],
         },
     ),
     # OpenAI GPT-OSS (August 2025)
@@ -130,22 +170,32 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
         num_layers=24,
         hidden_size=2880,
         recommended_layers={
-            "refusal": [8, 10, 12, 14, 16],  # middle layers for 24-layer model
+            "refusal": [8, 10, 12, 14, 16],
             "uncertainty": [6, 8, 10, 12],
             "tool_restraint": [10, 12, 14, 16],
             "instruction_hierarchy": [8, 10, 12, 14],
+            # Style behaviors
+            "formality": [8, 10, 12, 14],
+            "conciseness": [6, 7, 8, 9, 10],
+            "creativity": [12, 13, 14, 15, 16],
+            "assertiveness": [6, 8, 10, 12],
         },
     ),
     # Google Gemma 2 (June 2024)
     "google/gemma-2-9b-it": ModelConfig(
         name="google/gemma-2-9b-it",
-        num_layers=42,  # Gemma 2 9B has 42 layers
-        hidden_size=3584,  # Gemma 2 9B hidden size
+        num_layers=42,
+        hidden_size=3584,
         recommended_layers={
-            "refusal": [14, 16, 18, 20, 22],  # middle layers for 42-layer model
+            "refusal": [14, 16, 18, 20, 22],
             "uncertainty": [12, 14, 16, 18],
             "tool_restraint": [16, 18, 20, 22],
             "instruction_hierarchy": [14, 16, 18, 20],
+            # Style behaviors
+            "formality": [14, 16, 18, 20],
+            "conciseness": [10, 12, 14, 16],
+            "creativity": [20, 22, 24, 26],
+            "assertiveness": [12, 14, 16, 18],
         },
     ),
 }
