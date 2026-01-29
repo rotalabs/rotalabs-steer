@@ -34,7 +34,7 @@ rotalabs_steer/
 
 ## Supported Behaviors
 
-The package includes contrast pair datasets for 8 behaviors (254 total pairs):
+The package includes contrast pair datasets for 11 behaviors (335 total pairs):
 
 | Behavior | Description | Pairs |
 |----------|-------------|-------|
@@ -46,6 +46,9 @@ The package includes contrast pair datasets for 8 behaviors (254 total pairs):
 | `conciseness` | Brief, direct vs verbose responses | 25 |
 | `creativity` | Imaginative vs conventional responses | 30 |
 | `assertiveness` | Direct, confident vs hedging responses | 27 |
+| `humor` | Witty, playful vs serious responses | 31 |
+| `empathy` | Warm, supportive vs detached responses | 28 |
+| `technical_depth` | Expert-level vs simplified responses | 22 |
 
 ## Supported Models
 

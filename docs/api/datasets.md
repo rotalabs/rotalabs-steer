@@ -248,6 +248,39 @@ assertiveness_pairs = load_assertiveness_pairs()
 
 Contrasts direct, confident responses vs. hedging, passive responses.
 
+### Humor Pairs
+
+```python
+from rotalabs_steer.datasets import load_humor_pairs
+
+# Returns ContrastPairDataset with ~31 pairs
+humor_pairs = load_humor_pairs()
+```
+
+Contrasts witty, playful responses vs. serious, straightforward responses.
+
+### Empathy Pairs
+
+```python
+from rotalabs_steer.datasets import load_empathy_pairs
+
+# Returns ContrastPairDataset with ~28 pairs
+empathy_pairs = load_empathy_pairs()
+```
+
+Contrasts warm, emotionally supportive responses vs. detached, clinical responses.
+
+### Technical Depth Pairs
+
+```python
+from rotalabs_steer.datasets import load_technical_depth_pairs
+
+# Returns ContrastPairDataset with ~22 pairs
+technical_depth_pairs = load_technical_depth_pairs()
+```
+
+Contrasts detailed, expert-level technical responses vs. simplified, beginner-friendly responses.
+
 ---
 
 ## Creating Custom Datasets

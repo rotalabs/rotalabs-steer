@@ -152,7 +152,7 @@ chat.set_strength("refusal", 0.5)
 
 ## Available Behaviors
 
-The package includes contrast pair datasets for 8 behaviors (254 total pairs):
+The package includes contrast pair datasets for 11 behaviors (335 total pairs):
 
 | Behavior | Description | Pairs | Dataset Function |
 |----------|-------------|-------|------------------|
@@ -164,6 +164,9 @@ The package includes contrast pair datasets for 8 behaviors (254 total pairs):
 | `conciseness` | Brief vs verbose responses | 25 | `load_conciseness_pairs()` |
 | `creativity` | Imaginative vs conventional responses | 30 | `load_creativity_pairs()` |
 | `assertiveness` | Direct vs hedging responses | 27 | `load_assertiveness_pairs()` |
+| `humor` | Witty, playful vs serious responses | 31 | `load_humor_pairs()` |
+| `empathy` | Warm, supportive vs detached responses | 28 | `load_empathy_pairs()` |
+| `technical_depth` | Expert-level vs simplified responses | 22 | `load_technical_depth_pairs()` |
 
 ## Model Support
 

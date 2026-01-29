@@ -47,6 +47,10 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "conciseness": [10, 11, 12, 13, 14],
             "creativity": [18, 19, 20, 21, 22],
             "assertiveness": [12, 13, 14, 15, 16],
+            # Personality behaviors
+            "humor": [16, 17, 18, 19, 20],
+            "empathy": [14, 15, 16, 17, 18],
+            "technical_depth": [12, 13, 14, 15, 16],
         },
     ),
     "Qwen/Qwen3-4B": ModelConfig(
@@ -63,6 +67,10 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "conciseness": [10, 11, 12, 13, 14],
             "creativity": [18, 19, 20, 21, 22],
             "assertiveness": [12, 13, 14, 15, 16],
+            # Personality behaviors
+            "humor": [16, 17, 18, 19, 20],
+            "empathy": [14, 15, 16, 17, 18],
+            "technical_depth": [12, 13, 14, 15, 16],
         },
     ),
     "Qwen/Qwen3-14B": ModelConfig(
@@ -79,6 +87,10 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "conciseness": [14, 15, 16, 17, 18],
             "creativity": [24, 25, 26, 27, 28],
             "assertiveness": [16, 17, 18, 19, 20],
+            # Personality behaviors
+            "humor": [22, 23, 24, 25, 26],
+            "empathy": [20, 21, 22, 23, 24],
+            "technical_depth": [16, 17, 18, 19, 20],
         },
     ),
     # DeepSeek
@@ -96,6 +108,10 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "conciseness": [14, 15, 16, 17, 18],
             "creativity": [24, 25, 26, 27, 28],
             "assertiveness": [16, 17, 18, 19, 20],
+            # Personality behaviors
+            "humor": [22, 23, 24, 25, 26],
+            "empathy": [20, 21, 22, 23, 24],
+            "technical_depth": [16, 17, 18, 19, 20],
         },
     ),
     # Llama family (for reference)
@@ -113,6 +129,10 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "conciseness": [10, 11, 12],
             "creativity": [16, 17, 18],
             "assertiveness": [12, 13, 14],
+            # Personality behaviors
+            "humor": [14, 15, 16],
+            "empathy": [12, 13, 14],
+            "technical_depth": [10, 11, 12],
         },
     ),
     "meta-llama/Llama-3.1-70B-Instruct": ModelConfig(
@@ -129,6 +149,10 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "conciseness": [25, 26, 27, 28, 29, 30],
             "creativity": [40, 41, 42, 43, 44, 45],
             "assertiveness": [30, 31, 32, 33, 34, 35],
+            # Personality behaviors
+            "humor": [38, 39, 40, 41, 42, 43],
+            "empathy": [35, 36, 37, 38, 39, 40],
+            "technical_depth": [30, 31, 32, 33, 34, 35],
         },
     ),
     # Mistral
@@ -146,6 +170,10 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "conciseness": [8, 10, 12, 14],
             "creativity": [16, 18, 20, 22],
             "assertiveness": [10, 12, 14, 16],
+            # Personality behaviors
+            "humor": [14, 16, 18, 20],
+            "empathy": [12, 14, 16, 18],
+            "technical_depth": [10, 12, 14, 16],
         },
     ),
     "mistralai/Mistral-7B-Instruct-v0.3": ModelConfig(
@@ -162,6 +190,10 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "conciseness": [8, 10, 12, 14],
             "creativity": [16, 18, 20, 22],
             "assertiveness": [10, 12, 14, 16],
+            # Personality behaviors
+            "humor": [14, 16, 18, 20],
+            "empathy": [12, 14, 16, 18],
+            "technical_depth": [10, 12, 14, 16],
         },
     ),
     # OpenAI GPT-OSS (August 2025)
@@ -179,6 +211,10 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "conciseness": [6, 7, 8, 9, 10],
             "creativity": [12, 13, 14, 15, 16],
             "assertiveness": [6, 8, 10, 12],
+            # Personality behaviors
+            "humor": [10, 11, 12, 13, 14],
+            "empathy": [8, 10, 12, 14],
+            "technical_depth": [6, 8, 10, 12],
         },
     ),
     # Google Gemma 2 (June 2024)
@@ -196,6 +232,10 @@ MODEL_CONFIGS: dict[str, ModelConfig] = {
             "conciseness": [10, 12, 14, 16],
             "creativity": [20, 22, 24, 26],
             "assertiveness": [12, 14, 16, 18],
+            # Personality behaviors
+            "humor": [16, 18, 20, 22],
+            "empathy": [14, 16, 18, 20],
+            "technical_depth": [12, 14, 16, 18],
         },
     ),
 }
