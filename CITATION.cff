@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it using the metadata below.
+title: rotalabs-steer
+type: software
+authors:
+  - family-names: Mitra
+    given-names: Subhadip
+    email: subhadip@rotalabs.ai
+    affiliation: Rotalabs
+license: Apache-2.0
+version: "1.2.0"
+date-released: "2026-07-12"
+repository-code: https://github.com/rotalabs/rotalabs-steer
+url: https://rotalabs.ai
